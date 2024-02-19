@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+</head>
+<body data-rsssl=1>
+
+<style>
+img {
+display: block;
+margin: 3rem auto;
+}
+</style>
+<main>
+<p>Clicking the image gets a new one at random without ever repeating the same one twice in a row!</p>
+<img decoding="async" id="random-image" src="" alt="Random image">
+</main>
+<script>
+const imgEl = document.getElementById('random-image');
+
+const srcArray = ['https://images.unsplash.com/photo-1707343846292-56e4c6abf291?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHx8', 'https://images.unsplash.com/photo-1708022792768-edfab8b2be7a?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fHx8', 'https://plus.unsplash.com/premium_photo-1707816501030-b8e7fe073010?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8', 'https://images.unsplash.com/photo-1707430393809-784967fe6fee?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMHx8fGVufDB8fHx8fA%3D%3D'];
+// Stores path to images in an array
+imgEl.addEventListener('click', () => {
+    window.location.reload();
+    // Refreshes page when image clicked
+});
+
+randomImage();
+
+function randomImage() {
+
+    const randomIndex = Math.floor(Math.random()*srcArray.length);
+
+    if (localStorage.getItem('currentIndex') !== String(randomIndex)) {
+    // Checks if current index in local storage is NOT equal to new randm value (as string)...
+        
+        imgEl.src = srcArray[randomIndex];
+        //...if so, set random value as new image src...
+
+        localStorage.setItem('currentIndex', randomIndex);
+        //...and save as current index value in local storage
+
+    } else {
+      // random value and current index value match...
+
+        randomImage();
+        // ... so call random image function again
+
+    }
+}
+</script>
+  
+</body>
+</html>
