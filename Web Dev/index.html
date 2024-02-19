@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+</head>
+<body data-rsssl=1>
+
+<style>
+img {
+display: block;
+margin: 3rem auto;
+height: 93vh;
+width: 90vw;
+}
+</style>
+<main>
+<img decoding="async" id="random-image" src="" alt="Random image">
+</main>
+<script>
+const imgEl = document.getElementById('random-image');
+
+const srcArray = ['p01-01.png','p02-01.png','p03-01.png', 'p04-01.jpg','p05-01.png','p06-01.png']; // Add more images here as needed
+// Stores path to images in an array
+imgEl.addEventListener('click', () => {
+    window.location.reload();
+    // Refreshes page when image clicked
+});
+
+randomImage();
+
+function randomImage() {
+
+    const randomIndex = Math.floor(Math.random()*srcArray.length);
+
+    if (localStorage.getItem('currentIndex') !== String(randomIndex)) {
+    // Checks if current index in local storage is NOT equal to new randm value (as string)...
+        
+        imgEl.src = srcArray[randomIndex];
+        //...if so, set random value as new image src...
+
+        localStorage.setItem('currentIndex', randomIndex);
+        //...and save as current index value in local storage
+
+    } else {
+      // random value and current index value match...
+
+        randomImage();
+        // ... so call random image function again
+
+    }
+}
+</script>
+  
+</body>
+</html>
